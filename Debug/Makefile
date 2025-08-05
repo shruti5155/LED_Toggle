@@ -5,8 +5,7 @@
 
 -include ../makefile.init
 
-# Use PowerShell-based clean for Windows
-RM := powershell -Command "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue"
+RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -54,6 +53,7 @@ default.size.stdout \
 OBJDUMP_LIST += \
 LED_toggle.list \
 
+
 # All Target
 all: main-build
 
@@ -78,11 +78,7 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) @('LED_toggle.elf','LED_toggle.list','LED_toggle.map','default.size.stdout')
-	-$(RM) @('.\Drivers\STM32H5xx_HAL_Driver\Src\*.o','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.d','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.su','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.cyclo')
-	-$(RM) @('.\Drivers\BSP\STM32H5xx_Nucleo\*.o','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.d','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.su','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.cyclo')
-	-$(RM) @('.\Core\Startup\*.o','.\\Core\\Startup\\*.d')
-	-$(RM) @('.\Core\Src\*.o','.\\Core\\Src\\*.d','.\\Core\\Src\\*.su','.\\Core\\Src\\*.cyclo')
+	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
@@ -96,4 +92,4 @@ warn-no-linker-script-specified:
 
 .PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
--include ../makefile.targets
+-include ../makefile.targets  
