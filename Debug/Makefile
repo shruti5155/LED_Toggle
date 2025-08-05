@@ -5,7 +5,8 @@
 
 -include ../makefile.init
 
-RM := powershell -NoProfile -ExecutionPolicy Bypass -File ./clean.ps1
+# ✅ Updated cleanup command to avoid using an external script
+RM := powershell -NoProfile -ExecutionPolicy Bypass -Command "& { param([string[]]$files) foreach ($f in $files) { if (Test-Path $f) { Remove-Item -Force -ErrorAction SilentlyContinue $f } } }"
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -74,9 +75,9 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	echo 'Finished building: $@'
 	echo ' '
 
-# Other Targets
+# ✅ Clean Rule (Updated)
 clean:
-	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
+	-$(RM) LED_toggle.elf, LED_toggle.list, LED_toggle.map, default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
