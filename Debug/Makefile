@@ -5,7 +5,7 @@
 
 -include ../makefile.init
 
-RM := rm -rf
+RM := del /F /Q
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -63,18 +63,18 @@ main-build: LED_toggle.elf secondary-outputs
 # Tool invocations
 LED_toggle.elf LED_toggle.map: $(OBJS) $(USER_OBJS) C:\Users\Shruti\STM32CubeIDE\workspace_1.19.0\LED_toggle\STM32H563ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-gcc -o "LED_toggle.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\Shruti\STM32CubeIDE\workspace_1.19.0\LED_toggle\STM32H563ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LED_toggle.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-	@echo 'Finished building target: $@'
-	@echo ' '
+	echo 'Finished building target: $@'
+	echo ' '
 
 default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-size  $(EXECUTABLES)
-	@echo 'Finished building: $@'
-	@echo ' '
+	echo 'Finished building: $@'
+	echo ' '
 
 LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "LED_toggle.list"
-	@echo 'Finished building: $@'
-	@echo ' '
+	echo 'Finished building: $@'
+	echo ' '
 
 # Other Targets
 clean:
