@@ -78,11 +78,11 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) LED_toggle.elf, LED_toggle.list, LED_toggle.map, default.size.stdout
-	-$(RM) .\Drivers\STM32H5xx_HAL_Driver\Src\*.o, .\Drivers\STM32H5xx_HAL_Driver\Src\*.d, .\Drivers\STM32H5xx_HAL_Driver\Src\*.su, .\Drivers\STM32H5xx_HAL_Driver\Src\*.cyclo
-	-$(RM) .\Drivers\BSP\STM32H5xx_Nucleo\*.o, .\Drivers\BSP\STM32H5xx_Nucleo\*.d, .\Drivers\BSP\STM32H5xx_Nucleo\*.su, .\Drivers\BSP\STM32H5xx_Nucleo\*.cyclo
-	-$(RM) .\Core\Startup\*.o, .\Core\Startup\*.d
-	-$(RM) .\Core\Src\*.o, .\Core\Src\*.d, .\Core\Src\*.su, .\Core\Src\*.cyclo
+	-$(RM) @('LED_toggle.elf','LED_toggle.list','LED_toggle.map','default.size.stdout')
+	-$(RM) @('.\Drivers\STM32H5xx_HAL_Driver\Src\*.o','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.d','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.su','.\\Drivers\\STM32H5xx_HAL_Driver\\Src\\*.cyclo')
+	-$(RM) @('.\Drivers\BSP\STM32H5xx_Nucleo\*.o','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.d','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.su','.\\Drivers\\BSP\\STM32H5xx_Nucleo\\*.cyclo')
+	-$(RM) @('.\Core\Startup\*.o','.\\Core\\Startup\\*.d')
+	-$(RM) @('.\Core\Src\*.o','.\\Core\\Src\\*.d','.\\Core\\Src\\*.su','.\\Core\\Src\\*.cyclo')
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
