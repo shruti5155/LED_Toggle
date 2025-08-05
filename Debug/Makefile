@@ -5,8 +5,7 @@
 
 -include ../makefile.init
 
-RM := powershell -NoProfile -ExecutionPolicy Bypass -Command Remove-Item -Force -ErrorAction SilentlyContinue
-
+RM := powershell -NoProfile -ExecutionPolicy Bypass -File ./clean.ps1
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -35,7 +34,6 @@ $(wildcard ../makefile.defs) \
 $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
-
 BUILD_ARTIFACT_NAME := LED_toggle
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
@@ -53,7 +51,6 @@ default.size.stdout \
 
 OBJDUMP_LIST += \
 LED_toggle.list \
-
 
 # All Target
 all: main-build
@@ -79,7 +76,7 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout 2>nul
+	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
@@ -93,4 +90,4 @@ warn-no-linker-script-specified:
 
 .PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
--include ../makefile.targets  
+-include ../makefile.targets
