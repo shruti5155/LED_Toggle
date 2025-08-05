@@ -5,8 +5,7 @@
 
 -include ../makefile.init
 
-RM := cmd /C del /F /Q
-
+RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -79,7 +78,7 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) "LED_toggle.elf" "LED_toggle.list" "LED_toggle.map" "default.size.stdout"
+	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
