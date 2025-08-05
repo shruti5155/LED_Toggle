@@ -5,10 +5,7 @@
 
 -include ../makefile.init
 
-# ✅ Updated cleanup command to avoid using an external script
-RM := powershell -NoProfile -ExecutionPolicy Bypass -Command "& { param([string[]] \$files) foreach (\$f in \$files) { if (Test-Path \$f) { Remove-Item -Force -ErrorAction SilentlyContinue \$f } } }"
-
-
+RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -37,6 +34,7 @@ $(wildcard ../makefile.defs) \
 $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
+
 BUILD_ARTIFACT_NAME := LED_toggle
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
@@ -54,6 +52,7 @@ default.size.stdout \
 
 OBJDUMP_LIST += \
 LED_toggle.list \
+
 
 # All Target
 all: main-build
@@ -77,10 +76,10 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	echo 'Finished building: $@'
 	echo ' '
 
-# ✅ Clean Rule (Updated)
+# Other Targets
 clean:
 	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
-	-@echo 'Clean complete.'
+	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
@@ -93,4 +92,4 @@ warn-no-linker-script-specified:
 
 .PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
--include ../makefile.targets
+-include ../makefile.targets  make change and give as it is
