@@ -5,7 +5,8 @@
 
 -include ../makefile.init
 
-RM := del /F /Q
+RM := cmd /C del /F /Q
+
 
 # All of the sources participating in the build are defined here
 -include sources.mk
