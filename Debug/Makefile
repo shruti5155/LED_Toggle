@@ -78,7 +78,7 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
+	-$(RM) "LED_toggle.elf" "LED_toggle.list" "LED_toggle.map" "default.size.stdout"
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
