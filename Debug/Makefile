@@ -5,7 +5,8 @@
 
 -include ../makefile.init
 
-RM := powershell -Command "Remove-Item -Force -ErrorAction SilentlyContinue"
+RM := powershell -Command "Remove-Item -Force -ErrorAction SilentlyContinue --"
+
 
 # All of the sources participating in the build are defined here
 -include sources.mk
