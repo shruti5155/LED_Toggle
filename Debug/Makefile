@@ -5,7 +5,16 @@
 
 -include ../makefile.init
 
-RM := rm -rf
+# Detect Windows or Linux and set RM command accordingly
+ifeq ($(OS),Windows_NT)
+    RM := del /Q
+    RMDIR := rmdir /S /Q
+    NULL_DEVICE := nul
+else
+    RM := rm -rf
+    RMDIR := rm -rf
+    NULL_DEVICE := /dev/null
+endif
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -34,7 +43,6 @@ $(wildcard ../makefile.defs) \
 $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
-
 BUILD_ARTIFACT_NAME := LED_toggle
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
@@ -52,7 +60,6 @@ default.size.stdout \
 
 OBJDUMP_LIST += \
 LED_toggle.list \
-
 
 # All Target
 all: main-build
@@ -78,7 +85,13 @@ LED_toggle.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
+ifeq ($(OS),Windows_NT)
+	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout >$(NULL_DEVICE) 2>&1
+	-$(RM) Debug\*.o Debug\*.d Debug\*.elf Debug\*.map Debug\*.hex Debug\*.list >$(NULL_DEVICE) 2>&1
+else
 	-$(RM) LED_toggle.elf LED_toggle.list LED_toggle.map default.size.stdout
+	-$(RM) Debug/*.o Debug/*.d Debug/*.elf Debug/*.map Debug/*.hex Debug/*.list
+endif
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
@@ -92,4 +105,4 @@ warn-no-linker-script-specified:
 
 .PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
 
--include ../makefile.targets  make change and give as it is
+-include ../makefile.targets
